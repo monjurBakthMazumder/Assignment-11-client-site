@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import SocialSingIn from "../SocialSingIn/SocialSingIn";
 import { useForm } from "react-hook-form";
+import UseAuth from "../../../Hock/UseAuth";
 const SingIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {user} = UseAuth()
+  console.log(user);
   const {
     register,
     handleSubmit,
