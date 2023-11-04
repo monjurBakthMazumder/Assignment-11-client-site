@@ -56,15 +56,15 @@ const Navbar = () => {
           id="navbar-collapse-with-animation"
           className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block"
         >
-          <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
+          <div className="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-3 lg:gap-x-7 sm:mt-0 sm:pl-7">
             <NavLink
               to={"/"}
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
                   : isActive
-                  ? "font-medium text-white text-base underline sm:py-6"
-                  : "font-medium text-white text-base sm:py-6"
+                  ? "font-medium text-white underline sm:py-6"
+                  : "font-medium text-white sm:py-6"
               }
             >
               Home
@@ -75,8 +75,8 @@ const Navbar = () => {
                 isPending
                   ? "pending"
                   : isActive
-                  ? "font-medium text-white text-base underline sm:py-6"
-                  : "font-medium text-white text-base sm:py-6"
+                  ? "font-medium text-white underline sm:py-6"
+                  : "font-medium text-white sm:py-6"
               }
             >
               Available Food
@@ -87,8 +87,8 @@ const Navbar = () => {
                 isPending
                   ? "pending"
                   : isActive
-                  ? "font-medium text-white text-base underline sm:py-6"
-                  : "font-medium text-white text-base sm:py-6"
+                  ? "font-medium text-white underline sm:py-6"
+                  : "font-medium text-white sm:py-6"
               }
             >
               Add Food
@@ -99,8 +99,8 @@ const Navbar = () => {
                 isPending
                   ? "pending"
                   : isActive
-                  ? "font-medium text-white text-base underline sm:py-6"
-                  : "font-medium text-white text-base sm:py-6"
+                  ? "font-medium text-white underline sm:py-6"
+                  : "font-medium text-white sm:py-6"
               }
             >
               Manage My Food
@@ -111,15 +111,15 @@ const Navbar = () => {
                 isPending
                   ? "pending"
                   : isActive
-                  ? "font-medium text-white text-base underline sm:py-6"
-                  : "font-medium text-white text-base sm:py-6"
+                  ? "font-medium text-white underline sm:py-6"
+                  : "font-medium text-white sm:py-6"
               }
             >
               My Food Request
             </NavLink>
             <Link
               to={"/sing-in"}
-              className="flex items-center gap-x-2 font-medium text-white text-base sm:border-l sm:border-white/[.3] sm:my-6 sm:pl-6"
+              className="flex items-center gap-x-2 font-medium text-white sm:border-l sm:border-white/[.3] sm:my-6 sm:pl-6"
             >
               Log in
             </Link>
