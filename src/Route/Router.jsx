@@ -28,11 +28,11 @@ const Router = createBrowserRouter([
                 element: <AddFood/>
             },
             {
-                path: '/Manage-my-food',
+                path: '/manage-my-food',
                 element: <ManageMyFood/>
             },
             {
-                path: 'my-food-request',
+                path: '/my-food-request',
                 element: <MyFoodRequest/>
             },
             {
