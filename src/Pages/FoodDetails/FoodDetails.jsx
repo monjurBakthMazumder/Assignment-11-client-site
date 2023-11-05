@@ -49,9 +49,10 @@ const FoodDetails = () => {
       expiredDate,
       donationMoney,
       additionalNote,
+      status
     };
     console.log(requestFood);
-    axiosSecure.post("/request-food", requestFood).then((res) => {
+    axiosSecure.post("/request-foods", requestFood).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         alert("food added");

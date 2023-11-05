@@ -31,42 +31,8 @@ const ManageMyFood = () => {
     navigate(`/update-food/${id}`)
   };
   const handleManage = (id) => {
-    // navigate(`/update-food/${id}`)
     navigate(`/manage-food/${id}`)
   };
-
-  // const columns = useMemo(
-  //   () => [
-  //     {
-  //       Header: "Food Name",
-  //       accessor: "foodName",
-  //     },
-  //     {
-  //       Header: "Quantity",
-  //       accessor: "quantity",
-  //     },
-  //     {
-  //       Header: "Expired Date",
-  //       accessor: "expiredDate",
-  //     },
-  //     {
-  //       Header: "Status",
-  //       accessor: "status",
-  //     },
-  //     {
-  //       Header: "Update",
-  //       accessor: "_id",
-  //     },
-  //     {
-  //       Header: "Delete",
-  //       accessor: "id", 
-  //       Cell: ({ row }) => (
-  //         <button onClick={() => handleDelete(row.original._id)}><AiFillDelete className="text-2xl text-blue-600 hover:text-red-600"/></button>
-  //       ),
-  //     },
-  //   ],
-  //   []
-  // );
 
   const columns = useMemo(
     () => [
@@ -118,12 +84,12 @@ const ManageMyFood = () => {
             className="min-w-full divide-y divide-gray-200"
           >
             <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup}>
-                  {headerGroup.headers.map((column) => (
+              {headerGroups.map((headerGroup,i) => (
+                <tr {...headerGroup.getHeaderGroupProps()} key={i}>
+                  {headerGroup.headers.map((column,i) => (
                     <th
                       {...column.getHeaderProps()}
-                      key={column}
+                      key={i}
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
                     >
                       {column.render("Header")}
@@ -136,14 +102,14 @@ const ManageMyFood = () => {
               {...getTableBodyProps()}
               className="divide-y divide-gray-200"
             >
-              {rows.map((row) => {
+              {rows.map((row,i) => {
                 prepareRow(row);
                 return (
-                  <tr {...row.getRowProps()} key={row}>
-                    {row.cells.map((cell) => (
+                  <tr {...row.getRowProps()} key={i}>
+                    {row.cells.map((cell,i) => (
                       <td
                         {...cell.getCellProps()}
-                        key={cell}
+                        key={i}
                         className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
                       >
                         {cell.column.id === "action"
