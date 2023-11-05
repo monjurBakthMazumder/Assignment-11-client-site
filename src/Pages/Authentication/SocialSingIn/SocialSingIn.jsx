@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import UseAuth from "../../../Hock/UseAuth";
 
 const SocialSingIn = () => {
   const {singInWithGoogle} = UseAuth()
+  const navigate= useNavigate()
   const handleSocialLogin = media => {
     media()
     .then(result=> {
       console.log(result);
+      navigate('/')
     })
     .catch(err=> {
       console.log(err);

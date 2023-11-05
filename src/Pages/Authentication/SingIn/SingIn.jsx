@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import SocialSingIn from "../SocialSingIn/SocialSingIn";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ const SingIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const {loginUser} = UseAuth()
   const [error, setError] = useState('')
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -27,6 +28,7 @@ const SingIn = () => {
     loginUser(email, password)
     .then(result=> {
       console.log(result);
+      navigate('/')
     })
     .catch(()=> {
       setError("Email or password don't match")

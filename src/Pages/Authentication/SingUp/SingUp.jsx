@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import SocialSingIn from "../SocialSingIn/SocialSingIn";
 import { useForm } from "react-hook-form";
 import UseAuth from "../../../Hock/UseAuth";
+import { updateProfile } from "firebase/auth";
 const SingUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const { createUser } = UseAuth();
+  const { createUser, setUser } = UseAuth();
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,7 +32,15 @@ const SingUp = () => {
     //create user
     createUser(email, password)
       .then((result) => {
-        console.log(result);
+        updateProfile(result.user, {
+          displayName: name, 
+          photoURL: photo,
+        })
+        setUser({
+          displayName: name, 
+          photoURL: photo,
+        })
+        navigate('/')
       })
       .catch(() => {
         setError("Email already registered");
