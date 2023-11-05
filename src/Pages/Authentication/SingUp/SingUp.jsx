@@ -27,7 +27,6 @@ const SingUp = () => {
     const photo = data.photo;
     const email = data.email;
     const password = data.password;
-    console.log(name, photo, email, password);
     setError('')
     //create user
     createUser(email, password)
@@ -39,6 +38,7 @@ const SingUp = () => {
         setUser({
           displayName: name, 
           photoURL: photo,
+          email: email,
         })
         navigate('/')
       })
