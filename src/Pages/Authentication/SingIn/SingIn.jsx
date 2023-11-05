@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import UseAuth from "../../../Hock/UseAuth";
 const SingIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {user} = UseAuth()
-  console.log(user);
+  const {loginUser} = UseAuth()
+  const [error, setError] = useState('')
   const {
     register,
     handleSubmit,
@@ -22,12 +22,24 @@ const SingIn = () => {
     const email = data.email;
     const password = data.password;
     console.log(email, password);
+    setError('')
+    // login user
+    loginUser(email, password)
+    .then(result=> {
+      console.log(result);
+    })
+    .catch(()=> {
+      setError("Email or password don't match")
+    })
   };
   return (
     <div className="max-w-xl mx-auto my-10 md:my-20 border-2 rounded border-blue-400 p-10">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-10">
         Sing in
       </h1>
+      <p className="text-sm text-red-600 mb-5 text-center">
+         {error ? error : ''}
+        </p>
       <SocialSingIn />
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email">
