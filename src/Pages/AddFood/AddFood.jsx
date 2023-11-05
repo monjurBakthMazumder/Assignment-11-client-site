@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
+import useAxiosSecure from "../../Hock/axiosSecure";
 const AddFood = () => {
-    const {user} = UseAuth()
+  const axiosSecure = useAxiosSecure();
+  const { user } = UseAuth();
   const {
     register,
     handleSubmit,
@@ -23,12 +25,28 @@ const AddFood = () => {
     const pickupLocation = data.pickupLocation;
     const expiredDate = data.expiredDate;
     const additionalInformation = data.additionalInformation;
-    const donatorEmail = user?.email
-    const donatorName = user?.displayName
-    const donatorImg = user?.photoURL
-    const status = "available"
-    const addFood = {foodName,foodImg, quantity, pickupLocation, expiredDate, additionalInformation, donatorEmail, donatorName, donatorImg, status}
-    console.log(addFood);
+    const donatorEmail = user?.email;
+    const donatorName = user?.displayName;
+    const donatorImg = user?.photoURL;
+    const status = "available";
+    const addFood = {
+      foodName,
+      foodImg,
+      quantity,
+      pickupLocation,
+      expiredDate,
+      additionalInformation,
+      donatorEmail,
+      donatorName,
+      donatorImg,
+      status,
+    };
+    axiosSecure.post("/foods", addFood).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        alert("food added");
+      }
+    });
   };
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -104,7 +122,7 @@ const AddFood = () => {
               <label htmlFor="expiredDate">
                 Expired Date
                 <input
-                type="date"
+                  type="date"
                   {...register("expiredDate", {
                     required: "Expired Date is required",
                   })}
