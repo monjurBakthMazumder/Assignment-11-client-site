@@ -140,7 +140,6 @@ const AddFood = () => {
             <div className="w-full">
               <label htmlFor="additionalInformation">
                 Additional information
-              </label>
               <textarea
                 {...register("additionalInformation", {
                   required: "Additional information is required",
@@ -149,6 +148,7 @@ const AddFood = () => {
                 rows="3"
                 placeholder="Additional information"
               ></textarea>
+              </label>
               <p className="text-xs text-red-600 mt-1">
                 {errors.additionalInformation?.message}
               </p>
