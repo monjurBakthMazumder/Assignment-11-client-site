@@ -3,14 +3,71 @@ import useAxiosSecure from "../../Hock/axiosSecure";
 import { useTable } from "react-table";
 import { useMemo } from "react";
 import UseAuth from "../../Hock/UseAuth";
+import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai';
+import { useNavigate } from "react-router-dom";
 
 const ManageMyFood = () => {
   const [food, setFoods] = useState([]);
   const axiosSecure = useAxiosSecure();
-  const {user} = UseAuth()
-  console.log("user from manage",user);
+  const { user } = UseAuth();
+  const navigate = useNavigate()
+  console.log("user from manage", user);
   console.log(food);
   const data = useMemo(() => food, [food]);
+  const handleDelete = (id) => {
+    alert('delete')
+    axiosSecure
+      .delete(`/foods/${id}`)
+      .then((response) => {
+        setFoods((prevFoods) =>
+          prevFoods.filter((food) => food._id !== id)
+        );
+      })
+      .catch((error) => {
+        console.error("Error deleting food item: ", error);
+      });
+  };
+  const handleUpdate = (id) => {
+    navigate(`/update-food/${id}`)
+  };
+  const handleManage = (id) => {
+    // navigate(`/update-food/${id}`)
+    navigate(`/manage-food/${id}`)
+  };
+
+  // const columns = useMemo(
+  //   () => [
+  //     {
+  //       Header: "Food Name",
+  //       accessor: "foodName",
+  //     },
+  //     {
+  //       Header: "Quantity",
+  //       accessor: "quantity",
+  //     },
+  //     {
+  //       Header: "Expired Date",
+  //       accessor: "expiredDate",
+  //     },
+  //     {
+  //       Header: "Status",
+  //       accessor: "status",
+  //     },
+  //     {
+  //       Header: "Update",
+  //       accessor: "_id",
+  //     },
+  //     {
+  //       Header: "Delete",
+  //       accessor: "id", 
+  //       Cell: ({ row }) => (
+  //         <button onClick={() => handleDelete(row.original._id)}><AiFillDelete className="text-2xl text-blue-600 hover:text-red-600"/></button>
+  //       ),
+  //     },
+  //   ],
+  //   []
+  // );
+
   const columns = useMemo(
     () => [
       {
@@ -18,20 +75,27 @@ const ManageMyFood = () => {
         accessor: "foodName",
       },
       {
-        Header: "quantity",
+        Header: "Quantity",
         accessor: "quantity",
       },
       {
-        Header: "expiredDate",
+        Header: "Expired Date",
         accessor: "expiredDate",
       },
       {
-        Header: "status",
+        Header: "Status",
         accessor: "status",
       },
       {
         Header: "Action",
-        accessor: "",
+        accessor: "_id",
+        Cell: ({ row }) => (
+          <div>
+            <button onClick={() => handleUpdate(row.original._id)}><AiFillEdit className="text-2xl text-blue-600 hover:text-black-900"/></button> {/* Step 2 */}
+            <button onClick={() => handleDelete(row.original._id)}><AiFillDelete className="text-2xl text-blue-600 hover:text-red-600 mx-1"/></button>
+            <button onClick={() => handleManage(row.original._id)}><AiFillEye className="text-2xl text-blue-600 hover:text-black-900"/></button> {/* Step 2 */}
+          </div>
+        ),
       },
     ],
     []
@@ -39,8 +103,10 @@ const ManageMyFood = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
   useEffect(() => {
-    axiosSecure.get(`/manage-foods?email=${user?.email}`).then((res) => setFoods(res.data));
-  }, [axiosSecure,user?.email]);
+    axiosSecure
+      .get(`/manage-foods?email=${user?.email}`)
+      .then((res) => setFoods(res.data));
+  }, [axiosSecure, user?.email]);
   console.log(food);
 
   return (
@@ -80,8 +146,9 @@ const ManageMyFood = () => {
                         key={cell}
                         className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
                       >
-                        {" "}
-                        {cell.render("Cell")}{" "}
+                        {cell.column.id === "action"
+                          ? cell.render("Cell")
+                          : cell.render("Cell")}
                       </td>
                     ))}
                   </tr>

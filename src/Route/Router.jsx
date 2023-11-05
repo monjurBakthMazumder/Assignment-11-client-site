@@ -9,6 +9,8 @@ import SingIn from "../Pages/Authentication/SingIn/SingIn";
 import SingUp from "../Pages/Authentication/SingUp/SingUp";
 import AddFood from "../Pages/AddFood/AddFood";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
+import UpdateFood from "../Pages/UpdateFood/UpdateFood";
+import ManageSingleFood from "../Pages/ManageSingleFood/ManageSingleFood";
 
 const Router = createBrowserRouter([
     {
@@ -27,6 +29,14 @@ const Router = createBrowserRouter([
             {
                 path: '/add-food',
                 element: <AddFood/>
+            },
+            {
+                path: '/update-food/:id',
+                element: <UpdateFood/>
+            },
+            {
+                path: '/manage-food/:id',
+                element: <ManageSingleFood/>
             },
             {
                 path: '/manage-my-food',
