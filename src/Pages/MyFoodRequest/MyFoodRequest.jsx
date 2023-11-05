@@ -3,13 +3,11 @@ import useAxiosSecure from "../../Hock/axiosSecure";
 import { useTable } from "react-table";
 import { useMemo } from "react";
 import UseAuth from "../../Hock/UseAuth";
-import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai';
-import { useNavigate } from "react-router-dom";
+import { AiFillDelete, } from 'react-icons/ai';
 const MyFoodRequest = () => {
     const [food, setFoods] = useState([]);
     const axiosSecure = useAxiosSecure();
     const { user } = UseAuth();
-    const navigate = useNavigate()
     console.log("user from manage", user);
     console.log(food);
     const data = useMemo(() => food, [food]);
