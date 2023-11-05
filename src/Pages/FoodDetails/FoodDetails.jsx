@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hock/axiosSecure";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import UseAuth from "../../Hock/UseAuth";
 const FoodDetails = () => {
   const [food, setFood] = useState({});
   const axiosSecure = useAxiosSecure();
+  const { user } = UseAuth();
   const id = useParams();
   const {
     register,
@@ -17,6 +19,7 @@ const FoodDetails = () => {
     },
   });
   const {
+    _id,
     foodName,
     foodImg,
     quantity,
@@ -25,14 +28,35 @@ const FoodDetails = () => {
     additionalInformation,
     donatorEmail,
     donatorName,
-    donatorImg,
     status,
   } = food;
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
     const donationMoney = data.donationMoney;
-    const additionalInformation = data.foodImg;
-    const requestFood = {donationMoney,additionalInformation};
+    const additionalNote = data.additionalNote;
+    const requestFood = {
+      foodName,
+      foodImg,
+      foodId: _id,
+      donatorName,
+      donatorEmail,
+      userEmail: user?.email,
+      requestDate: `${year}-${month}-${day}`,
+      pickupLocation,
+      expiredDate,
+      donationMoney,
+      additionalNote,
+    };
     console.log(requestFood);
+    axiosSecure.post("/request-food", requestFood).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        alert("food added");
+      }
+    });
   };
   useEffect(() => {
     axiosSecure.get(`/foods/${id.id}`).then((res) => setFood(res.data));
@@ -89,16 +113,21 @@ const FoodDetails = () => {
                         <label htmlFor="name">
                           Donation Money
                           <input
-                            {...register("donationMoney", { required: "Donation Money is required" })}
+                          type="number"
+                            {...register("donationMoney", {
+                              required: "Donation Money is required",
+                            })}
                             placeholder="Donation Money"
                             className="py-3 px-4 block w-full border border-blue-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 outline-none mt-1"
                           />
                         </label>
-                        <p className="text-xs text-red-600 mt-1 mb-5">{errors.donationMoney?.message}</p>
-                        <label htmlFor="additionalInformation">
+                        <p className="text-xs text-red-600 mt-1 mb-5">
+                          {errors.donationMoney?.message}
+                        </p>
+                        <label htmlFor="additionalNote">
                           Additional Notes
                           <textarea
-                            {...register("additionalInformation", {
+                            {...register("additionalNote", {
                               required: "Additional Notes is required",
                             })}
                             className="py-3 px-4 block w-full border border-blue-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 outline-none mt-1 resize-none"
@@ -107,7 +136,7 @@ const FoodDetails = () => {
                           ></textarea>
                         </label>
                         <p className="text-xs text-red-600 mt-1 mb-5">
-                          {errors.additionalInformation?.message}
+                          {errors.additionalNote?.message}
                         </p>
                         <button
                           type="submit"
