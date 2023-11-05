@@ -18,10 +18,10 @@ const AddFood = () => {
       additionalInformation: "",
     },
   });
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     const foodName = data.foodName;
     const foodImg = data.foodImg;
-    const quantity = data.quantity;
+    const quantity = Number(data.quantity);
     const pickupLocation = data.pickupLocation;
     const expiredDate = data.expiredDate;
     const additionalInformation = data.additionalInformation;
@@ -41,7 +41,7 @@ const AddFood = () => {
       donatorImg,
       status,
     };
-    axiosSecure.post("/foods", addFood).then((res) => {
+    await axiosSecure.post("/foods", addFood).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         alert("food added");
@@ -92,6 +92,7 @@ const AddFood = () => {
               <label htmlFor="quantity">
                 Quantity
                 <input
+                  type="number"
                   {...register("quantity", {
                     required: "Quantity is required",
                   })}

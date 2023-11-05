@@ -3,11 +3,12 @@ import MainLayout from "../Layout/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import AvailableFood from "../Pages/AvailableFood/AvailableFood";
-import AddFood from "../Pages/AddFood/AddFood";
 import ManageMyFood from "../Pages/ManageMyFood/ManageMyFood";
 import MyFoodRequest from "../Pages/MyFoodRequest/MyFoodRequest";
 import SingIn from "../Pages/Authentication/SingIn/SingIn";
 import SingUp from "../Pages/Authentication/SingUp/SingUp";
+import AddFood from "../Pages/AddFood/AddFood";
+import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 
 const Router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ const Router = createBrowserRouter([
             {
                 path: '/my-food-request',
                 element: <MyFoodRequest/>
+            },
+            {
+                path: '/food/:id',
+                element: <FoodDetails/>
             },
             {
                 path: '/sing-in',

@@ -23,8 +23,6 @@ const HomeSlicer = () => {
       progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     };
     return (
-      <div className="max-w-[100rem] w-full mx-auto xl:px-8">
-
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -107,7 +105,6 @@ const HomeSlicer = () => {
             <span ref={progressContent}></span>
           </div>
         </Swiper>
-      </div>
     );
 };
 

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 const Heading = ({children}) => {
     return (
-        <div>
+        <h1 className='text-3xl sm:text-4xl lg:text-5xl text-center font-bold'>
             {children}
-        </div>
+        </h1>
     );
 };
 
