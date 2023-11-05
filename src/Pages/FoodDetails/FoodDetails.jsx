@@ -1,11 +1,21 @@
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hock/axiosSecure";
 import { useEffect, useState } from "react";
-
+import { useForm } from "react-hook-form";
 const FoodDetails = () => {
   const [food, setFood] = useState({});
   const axiosSecure = useAxiosSecure();
   const id = useParams();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      donationMoney: "",
+      additionalInformation: "",
+    },
+  });
   const {
     foodName,
     foodImg,
@@ -18,6 +28,12 @@ const FoodDetails = () => {
     donatorImg,
     status,
   } = food;
+  const onSubmit = async(data) => {
+    const donationMoney = data.donationMoney;
+    const additionalInformation = data.foodImg;
+    const requestFood = {donationMoney,additionalInformation};
+    console.log(requestFood);
+  };
   useEffect(() => {
     axiosSecure.get(`/foods/${id.id}`).then((res) => setFood(res.data));
   }, [axiosSecure, id?.id]);
@@ -36,6 +52,7 @@ const FoodDetails = () => {
           <h1 className="text-3xl lg:text-4xl font-bold">{foodName}</h1>
           <h1 className="text-lg font-medium my-1">Quantity: {quantity}</h1>
           <h1 className="font-bold text-base">Expire Date: {expiredDate}</h1>
+          <h1 className="font-bold text-base">Status: {status}</h1>
           <p className="font-light text-justify my-3">
             {additionalInformation}
           </p>
@@ -67,30 +84,30 @@ const FoodDetails = () => {
                   </div>
 
                   <div className="mt-5">
-                    <form>
-                      <div className="grid gap-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div className="grid">
                         <label htmlFor="name">
                           Donation Money
                           <input
-                            // {...register("name", { required: "Donation Money is required" })}
+                            {...register("donationMoney", { required: "Donation Money is required" })}
                             placeholder="Donation Money"
-                            className="py-3 px-4 block w-full border border-blue-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 outline-none mt-2"
+                            className="py-3 px-4 block w-full border border-blue-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 outline-none mt-1"
                           />
                         </label>
-                        {/* <p className="text-xs text-red-600 mb-5 mt-1">{errors.name?.message}</p> */}
+                        <p className="text-xs text-red-600 mt-1 mb-5">{errors.donationMoney?.message}</p>
                         <label htmlFor="additionalInformation">
                           Additional Notes
                           <textarea
-                            // {...register("additionalInformation", {
-                            //   required: "Additional Notes is required",
-                            // })}
-                            className="py-3 px-4 block w-full border border-blue-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 outline-none mt-2 resize-none"
+                            {...register("additionalInformation", {
+                              required: "Additional Notes is required",
+                            })}
+                            className="py-3 px-4 block w-full border border-blue-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 outline-none mt-1 resize-none"
                             rows="3"
                             placeholder="Additional Notes"
                           ></textarea>
                         </label>
-                        <p className="text-xs text-red-600 mt-1">
-                          {/* {errors.additionalInformation?.message} */}
+                        <p className="text-xs text-red-600 mt-1 mb-5">
+                          {errors.additionalInformation?.message}
                         </p>
                         <button
                           type="submit"
