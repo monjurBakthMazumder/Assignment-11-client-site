@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../Hock/useAxiosSecure";
+import Faq from "../../Component/Faq/Faq";
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
@@ -50,6 +51,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
+        <Faq/>
       </div>
     </>
   );

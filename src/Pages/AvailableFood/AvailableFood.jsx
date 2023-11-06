@@ -35,6 +35,14 @@ const AvailableFood = () => {
     });
   };
 
+  const handleSortByDate = () => {
+    setLoading(true);
+    axiosSecure.get(`/short-foods`).then((res) => {
+      setFoods(res.data);
+      setLoading(false);
+    });
+  }
+
   return (
     <>
       <Helmet>
@@ -64,9 +72,16 @@ const AvailableFood = () => {
                 Search
               </button>
             </form>
+            <div className="text-center my-5" >
+              <button 
+              onClick={handleSortByDate}
+              className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 text-sm ">
+                Sort by expired date
+              </button>
+            </div>
           </div>
           {loading ? (
-            <Loading /> 
+            <Loading />
           ) : foods?.length < 1 ? (
             <div className="flex justify-center items-center h-[50vh] font-semibold text-2xl md:text-3xl lg:text-4xl">
               No food find
