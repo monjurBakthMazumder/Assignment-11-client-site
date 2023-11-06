@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
-import useAxiosSecure from "../../Hock/axiosSecure";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 const AddFood = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();

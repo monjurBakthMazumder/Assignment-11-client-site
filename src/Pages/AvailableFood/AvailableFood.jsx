@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import useAxiosSecure from "../../Hock/axiosSecure";
 import Heading from "../../Component/UI/Heading";
 import Description from "../../Component/UI/Description";
 import FeatureFoodCard from "../../Component/Card/FeatureFoodCard/FeatureFoodCard";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 
 const AvailableFood = () => {
   const [foods, setFoods] = useState([]);
@@ -66,7 +66,7 @@ const AvailableFood = () => {
             </form>
           </div>
           {loading ? (
-            <Loading />
+            <Loading /> 
           ) : foods?.length < 1 ? (
             <div className="flex justify-center items-center h-[50vh] font-semibold text-2xl md:text-3xl lg:text-4xl">
               No food find

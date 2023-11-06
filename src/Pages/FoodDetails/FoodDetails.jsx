@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import useAxiosSecure from "../../Hock/axiosSecure";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 import Loading from "../../Component/Loading/Loading";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 const FoodDetails = () => {
   const [food, setFood] = useState({});
   const [loading, setLoading] = useState(true);

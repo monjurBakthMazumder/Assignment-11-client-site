@@ -1,9 +1,9 @@
-import useAxiosSecure from "../../Hock/axiosSecure";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 const UpdateFood = () => {
   const [food, setFood] = useState({});
   const [loading, setLoading] = useState(true);

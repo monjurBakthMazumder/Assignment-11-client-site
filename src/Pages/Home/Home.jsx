@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import HomeSlicer from "../../Component/Slider/HomeSlicer/HomeSlicer";
 import Description from "../../Component/UI/Description";
 import Heading from "../../Component/UI/Heading";
-import useAxiosSecure from "../../Hock/axiosSecure";
 import FeatureFoodCard from "../../Component/Card/FeatureFoodCard/FeatureFoodCard";
 import { Link } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
+import useAxiosSecure from "../../Hock/useAxiosSecure";
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
