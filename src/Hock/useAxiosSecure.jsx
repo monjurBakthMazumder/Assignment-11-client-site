@@ -24,7 +24,7 @@ const useAxiosSecure = () => {
         }
       }
     );
-  }, []);
+  }, [authInfo]);
 
   return axiosSecure;
 };
