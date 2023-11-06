@@ -64,10 +64,6 @@ const MyFoodRequest = () => {
               </button>
             )}
           </div>
-
-          // <div>
-          //   <button onClick={() => handleDelete(row.original._id)}><AiFillDelete className="text-2xl text-blue-600 hover:text-red-600 mx-1"/></button>
-          // </div>
         ),
       },
     ],

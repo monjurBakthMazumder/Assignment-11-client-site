@@ -33,6 +33,15 @@ const ManageSingleFood = () => {
       {
         Header: "Requester Image",
         accessor: "requesterImg",
+        Cell: ({ row }) => (
+          <div>
+            <img
+              src={row.values.requesterImg}
+              alt="Requester Image"
+              style={{ width: "50px", height: "50px" }} 
+            />
+          </div>
+        ),
       },
       {
         Header: "Requester Email",
@@ -51,7 +60,7 @@ const ManageSingleFood = () => {
         accessor: "_id",
         Cell: ({ row }) => (
           <div>
-            <p onClick={() => handleUpdate(row.original._id)}>status</p>
+            <p onClick={() => handleUpdate(row.original._id)} className="px-3 py-1 text-center border border-blue-600 bg-blue-600 text-white hover:bg-white hover:text-blue-600 cursor-pointer">status</p>
           </div>
         ),
       },
@@ -64,7 +73,7 @@ const ManageSingleFood = () => {
     axiosSecure
       .get(`/manage-single-foods-request/${params?.id}`)
       .then((res) => setFoods(res.data));
-  }, [axiosSecure, params?.id]);
+  }, [axiosSecure, params?.id, ()=>handleUpdate]);
   console.log(food);
 
   return (
