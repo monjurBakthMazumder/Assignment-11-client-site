@@ -10,9 +10,7 @@ const axiosSecure = axios.create({
 
 const useAxiosSecure = () => {
   const authInfo = useContext(AuthContext);
-  // console.log("from axios", authInfo?.logoutUser);
   // const {logoutUser} = useContext(AuthContext)
-  // console.log("logoutUser", logoutUser);
 
   useEffect(() => {
     axiosSecure.interceptors.response.use(

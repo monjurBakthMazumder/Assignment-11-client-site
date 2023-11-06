@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import SocialSingIn from "../SocialSingIn/SocialSingIn";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,8 @@ const SingUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const { createUser, setUser } = UseAuth();
+
+  const loc = useLocation();
   const navigate = useNavigate();
   const {
     register,
@@ -47,7 +49,7 @@ const SingUp = () => {
           photoURL: photo,
           email: email,
         });
-        navigate("/");
+        navigate(loc.state ? loc.state : "/");
       })
       .catch(() => {
         setError("Email already registered");

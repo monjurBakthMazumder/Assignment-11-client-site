@@ -19,7 +19,6 @@ const AvailableFood = () => {
       setLoading(false);
     });
   }, [axiosSecure]);
-  console.log(foods);
   const { register, handleSubmit } = useForm({
     defaultValues: {
       search: "",
@@ -27,7 +26,6 @@ const AvailableFood = () => {
   });
   const onSubmit = async (data) => {
     const search = data.search;
-    console.log(search);
     setLoading(true);
     axiosSecure.get(`/foods?search=${search}`).then((res) => {
       setFoods(res.data);
@@ -41,7 +39,7 @@ const AvailableFood = () => {
       setFoods(res.data);
       setLoading(false);
     });
-  }
+  };
 
   return (
     <>
@@ -72,10 +70,11 @@ const AvailableFood = () => {
                 Search
               </button>
             </form>
-            <div className="text-center my-5" >
-              <button 
-              onClick={handleSortByDate}
-              className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 text-sm ">
+            <div className="text-center my-5">
+              <button
+                onClick={handleSortByDate}
+                className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 text-sm "
+              >
                 Sort by expired date
               </button>
             </div>

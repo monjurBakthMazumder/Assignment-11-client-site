@@ -15,8 +15,6 @@ const ManageMyFood = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
   const navigate = useNavigate();
-  console.log("user from manage", user);
-  console.log(food);
   const data = useMemo(() => food, [food]);
   const handleDelete = (id) => {
     Swal.fire({
@@ -105,7 +103,6 @@ const ManageMyFood = () => {
       setLoading(false);
     });
   }, [axiosSecure, user?.email]);
-  console.log(food);
   if (loading) {
     return <Loading />;
   }

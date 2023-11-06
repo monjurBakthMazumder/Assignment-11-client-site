@@ -12,8 +12,6 @@ const MyFoodRequest = () => {
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
-  console.log("user from manage", user);
-  console.log(food);
   const data = useMemo(() => food, [food]);
   const handleDelete = (id) => {
     Swal.fire({
@@ -23,28 +21,28 @@ const MyFoodRequest = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-      .delete(`/request/${id}`)
-      .then((response) => {
-        setFoods((prevFoods) => prevFoods.filter((food) => food._id !== id));
-        if(response.data.deletedCount > 0) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
+          .delete(`/request/${id}`)
+          .then((response) => {
+            setFoods((prevFoods) =>
+              prevFoods.filter((food) => food._id !== id)
+            );
+            if (response.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting food item: ", error);
           });
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting food item: ", error);
-      });
-        
       }
     });
-    
   };
 
   const columns = useMemo(
@@ -102,7 +100,6 @@ const MyFoodRequest = () => {
       setLoading(false);
     });
   }, [axiosSecure, user?.email]);
-  console.log(food);
   if (loading) {
     return <Loading />;
   }

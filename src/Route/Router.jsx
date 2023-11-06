@@ -69,7 +69,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/food/:id",
-        element: <FoodDetails />,
+        element: <PrivateRoute><FoodDetails /></PrivateRoute>,
       },
       {
         path: "/sing-in",

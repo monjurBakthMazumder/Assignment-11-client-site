@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import SocialSingIn from "../SocialSingIn/SocialSingIn";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,8 @@ const SingIn = () => {
   const { loginUser } = UseAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const loc = useLocation();
   const {
     register,
     handleSubmit,
@@ -24,12 +26,11 @@ const SingIn = () => {
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
-    console.log(email, password);
     setError("");
     // login user
     loginUser(email, password)
       .then(() => {
-        navigate("/");
+        navigate(loc.state ? loc.state : "/");
         Swal.fire({
           title: "LogIn",
           text: "Login successfully",

@@ -13,8 +13,6 @@ const ManageSingleFood = () => {
   const params = useParams();
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
-  console.log("user from manage", user);
-  console.log(food);
   const data = useMemo(() => food, [food]);
   const handleUpdate = (id) => {
     const updateFood = { status: "Delivered" };
@@ -49,6 +47,7 @@ const ManageSingleFood = () => {
           .catch((error) => {
             console.error("Error deleting food item: ", error);
           });
+        axiosSecure.delete(`/foods/${params.id}`);
       }
     });
   };
@@ -79,6 +78,10 @@ const ManageSingleFood = () => {
       {
         Header: "Request Date",
         accessor: "requestDate",
+      },
+      {
+        Header: "Request Time",
+        accessor: "time",
       },
       {
         Header: "Status",
@@ -123,7 +126,6 @@ const ManageSingleFood = () => {
         setLoading(false);
       });
   }, [axiosSecure, params?.id]);
-  console.log(food);
   if (loading) {
     return <Loading />;
   }

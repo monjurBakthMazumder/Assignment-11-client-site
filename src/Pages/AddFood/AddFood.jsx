@@ -45,14 +45,13 @@ const AddFood = () => {
       status,
     };
     await axiosSecure.post("/foods", addFood).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({
           title: "Food added",
           text: "Your food added successfully",
           icon: "success",
         });
-        reset()
+        reset();
       }
     });
   };

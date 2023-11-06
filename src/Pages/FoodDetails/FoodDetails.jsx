@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
@@ -40,6 +40,8 @@ const FoodDetails = () => {
     const day = currentDate.getDate();
     const month = currentDate.getMonth() + 1;
     const year = currentDate.getFullYear();
+    const currentHour = currentDate.getHours();
+    const currentMinute = currentDate.getMinutes();
     const donationMoney = data.donationMoney;
     const additionalNote = data.additionalNote;
     const requestFood = {
@@ -52,21 +54,20 @@ const FoodDetails = () => {
       requesterName: user?.displayName,
       requesterEmail: user?.email,
       requestDate: `${year}-${month}-${day}`,
+      time: `${currentHour}:${currentMinute}`,
       pickupLocation,
       expiredDate,
       donationMoney,
       additionalNote,
-      status,
+      status: "Pending",
     };
-    console.log(requestFood);
     axiosSecure.post("/request-foods", requestFood).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
-        reset()
+        reset();
         Swal.fire({
           title: "Send request",
           text: "Your food request is send successfully",
-          icon: "success"
+          icon: "success",
         });
       }
     });
@@ -74,12 +75,11 @@ const FoodDetails = () => {
   useEffect(() => {
     setLoading(true);
     axiosSecure.get(`/foods/${id.id}`).then((res) => {
-      setFood(res.data)
-      setLoading(false)
+      setFood(res.data);
+      setLoading(false);
     });
   }, [axiosSecure, id?.id]);
-  console.log(id);
-  
+
   if (loading) {
     return <Loading />;
   }
@@ -111,22 +111,13 @@ const FoodDetails = () => {
               Pickup location: {pickupLocation}
             </h1>
 
-            {user ? (
-              <button
-                type="button"
-                data-hs-overlay="#hs-modal-recover-account"
-                className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
-              >
-                Request
-              </button>
-            ) : (
-              <Link
-                to={"/sing-in"}
-                className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
-              >
-                Login for food request
-              </Link>
-            )}
+            <button
+              type="button"
+              data-hs-overlay="#hs-modal-recover-account"
+              className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
+            >
+              Request
+            </button>
 
             <div
               id="hs-modal-recover-account"

@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
   // sing in with Github
   const singInWithGithub = () => {
     setIsLoading(true);
-    return signInWithPopup(auth, githubProvider)
+    return signInWithPopup(auth, githubProvider);
   };
 
   // logout
@@ -68,16 +68,11 @@ const AuthProvider = ({ children }) => {
       const loggedUser = { email: userEmail };
       setUser(currentUser);
       setIsLoading(false);
-      console.log(currentUser);
 
       if (currentUser) {
-        axiosSecure
-          .post("/jwt", loggedUser)
-          .then(() => {});
+        axiosSecure.post("/jwt", loggedUser).then(() => {});
       } else {
-        axiosSecure
-          .post("/logout", loggedUser)
-          .then(() => {});
+        axiosSecure.post("/logout", loggedUser).then(() => {});
       }
     });
     return () => {

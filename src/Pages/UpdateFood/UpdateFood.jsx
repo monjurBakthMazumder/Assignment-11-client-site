@@ -43,9 +43,7 @@ const UpdateFood = () => {
       expiredDate,
       additionalInformation,
     };
-    console.log(updateFood);
     axiosSecure.put(`/foods/${_id}`, updateFood).then((res) => {
-      console.log(res.data);
       if (res.data.modifiedCount) {
         Swal.fire({
           title: "Food updated",
