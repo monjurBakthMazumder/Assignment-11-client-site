@@ -10,6 +10,7 @@ import useAxiosSecure from "../../Hock/useAxiosSecure";
 import Faq from "../../Component/Faq/Faq";
 import Contact from "../../Component/Contact/Contact";
 import Stats from "../../Component/Stats/Stats";
+import WhyDonateFood from "../../Component/whyDonateFood/whyDonateFood";
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
@@ -53,6 +54,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
+        <WhyDonateFood/>
         <Stats/>
         <Faq/>
         <Contact/>
