@@ -4,10 +4,12 @@ import { useTable } from "react-table";
 import { useMemo } from "react";
 import UseAuth from "../../Hock/UseAuth";
 import { useParams } from "react-router-dom";
+import Loading from "../../Component/Loading/Loading";
+import { Helmet } from "react-helmet";
 const ManageSingleFood = () => {
-  const params = useParams();
-  console.log("useparams", params);
   const [food, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
   console.log("user from manage", user);
@@ -86,57 +88,77 @@ const ManageSingleFood = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
   useEffect(() => {
+    setLoading(true);
     axiosSecure
       .get(`/manage-single-foods-request/${params?.id}`)
-      .then((res) => setFoods(res.data));
-  }, [axiosSecure, params?.id, () => handleUpdate]);
+      .then((res) => {
+        setFoods(res.data);
+        setLoading(false);
+      });
+  }, [axiosSecure, params?.id]);
   console.log(food);
-
+  if (loading) {
+    return <Loading />;
+  }
   return (
-    <div className="max-w-[100rem] w-full mx-auto  px-4 sm:px-6 lg:px-8 my-10 sm:my-20">
-      <div className="overflow-x-auto">
-        <table
-          {...getTableProps()}
-          className="min-w-full divide-y divide-gray-200"
-        >
-          <thead>
-            {headerGroups.map((headerGroup, i) => (
-              <tr {...headerGroup.getHeaderGroupProps()} key={i}>
-                {headerGroup.headers.map((column, i) => (
-                  <th
-                    {...column.getHeaderProps()}
-                    key={i}
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                  >
-                    {column.render("Header")}
-                  </th>
+    <>
+      <Helmet>
+        <title>Foodies| Manage Food Details</title>
+      </Helmet>
+      <div className="max-w-[100rem] w-full mx-auto  px-4 sm:px-6 lg:px-8 my-10 sm:my-20">
+        <div className="overflow-x-auto">
+          {food?.length < 1 ? (
+            <div className="flex justify-center items-center h-[50vh] font-semibold text-2xl md:text-3xl lg:text-4xl">
+              No Request Find
+            </div>
+          ) : (
+            <table
+              {...getTableProps()}
+              className="min-w-full divide-y divide-gray-200"
+            >
+              <thead>
+                {headerGroups.map((headerGroup, i) => (
+                  <tr {...headerGroup.getHeaderGroupProps()} key={i}>
+                    {headerGroup.headers.map((column, i) => (
+                      <th
+                        {...column.getHeaderProps()}
+                        key={i}
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                      >
+                        {column.render("Header")}
+                      </th>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()} className="divide-y divide-gray-200">
-            {rows.map((row, i) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()} key={i}>
-                  {row.cells.map((cell, i) => (
-                    <td
-                      {...cell.getCellProps()}
-                      key={i}
-                      className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-                    >
-                      {cell.column.id === "action"
-                        ? cell.render("Cell")
-                        : cell.render("Cell")}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody
+                {...getTableBodyProps()}
+                className="divide-y divide-gray-200"
+              >
+                {rows.map((row, i) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()} key={i}>
+                      {row.cells.map((cell, i) => (
+                        <td
+                          {...cell.getCellProps()}
+                          key={i}
+                          className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
+                        >
+                          {cell.column.id === "action"
+                            ? cell.render("Cell")
+                            : cell.render("Cell")}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

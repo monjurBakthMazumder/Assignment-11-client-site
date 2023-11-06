@@ -14,54 +14,73 @@ import ManageSingleFood from "../Pages/ManageSingleFood/ManageSingleFood";
 import PrivateRoute from "../Pages/PrivateRoute";
 
 const Router = createBrowserRouter([
-    {
-        path: '/',
-        element: <MainLayout/>,
-        errorElement: <ErrorPage/>,
-        children:[
-            {
-                path: '/',
-                element: <Home/>
-            },
-            {
-                path: '/available-food',
-                element: <AvailableFood/>
-            },
-            {
-                path: '/add-food',
-                element: <PrivateRoute><AddFood/></PrivateRoute>
-            },
-            {
-                path: '/update-food/:id',
-                element: <PrivateRoute><UpdateFood/></PrivateRoute>
-            },
-            {
-                path: '/manage-food/:id',
-                element: <PrivateRoute><ManageSingleFood/></PrivateRoute>
-            },
-            {
-                path: '/manage-my-food',
-                element: <PrivateRoute><ManageMyFood/></PrivateRoute>
-            },
-            {
-                path: '/my-food-request',
-                element: <PrivateRoute><MyFoodRequest/></PrivateRoute>
-            },
-            {
-                path: '/food/:id',
-                element: <FoodDetails/>
-            },
-            {
-                path: '/sing-in',
-                element: <SingIn/>
-            },
-            {
-                path: '/sing-up',
-                element: <SingUp/>
-            }
-        ]
-
-    }
-])
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/available-food",
+        element: <AvailableFood />,
+      },
+      {
+        path: "/add-food",
+        element: (
+          <PrivateRoute>
+            <AddFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-food/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manage-food/:id",
+        element: (
+          <PrivateRoute>
+            <ManageSingleFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manage-my-food",
+        element: (
+          <PrivateRoute>
+            <ManageMyFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-food-request",
+        element: (
+          <PrivateRoute>
+            <MyFoodRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/food/:id",
+        element: <FoodDetails />,
+      },
+      {
+        path: "/sing-in",
+        element: <SingIn />,
+      },
+      {
+        path: "/sing-up",
+        element: <SingUp />,
+      },
+    ],
+  },
+]);
 
 export default Router;
