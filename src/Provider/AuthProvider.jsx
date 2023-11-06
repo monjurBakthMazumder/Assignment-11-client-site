@@ -1,4 +1,5 @@
 import {
+  GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -13,6 +14,7 @@ import useAxiosSecure from "../Hock/useAxiosSecure";
 
 export const AuthContext = createContext();
 const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -37,6 +39,12 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
+  // sing in with Github
+  const singInWithGithub = () => {
+    setIsLoading(true);
+    return signInWithPopup(auth, githubProvider)
+  };
+
   // logout
   const logoutUser = () => {
     setIsLoading(true);
@@ -50,6 +58,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     loginUser,
     singInWithGoogle,
+    singInWithGithub,
     logoutUser,
   };
 
