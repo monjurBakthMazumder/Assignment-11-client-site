@@ -6,6 +6,7 @@ import Description from "../../Component/UI/Description";
 import FeatureFoodCard from "../../Component/Card/FeatureFoodCard/FeatureFoodCard";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
 
 const AvailableFood = () => {
   const [foods, setFoods] = useState([]);
@@ -19,9 +20,21 @@ const AvailableFood = () => {
     });
   }, [axiosSecure]);
   console.log(foods);
-  if (loading) {
-    return <Loading />;
-  }
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      search: "",
+    },
+  });
+  const onSubmit = async (data) => {
+    const search = data.search;
+    console.log(search);
+    setLoading(true);
+    axiosSecure.get(`/foods?search=${search}`).then((res) => {
+      setFoods(res.data);
+      setLoading(false);
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -34,12 +47,37 @@ const AvailableFood = () => {
             Explore our website for an array of delightful, nutritious food
             options available for generous donations.
           </Description>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
-            {foods?.map((food) => (
-              <FeatureFoodCard key={food._id} food={food} />
-            ))}
+          <div className="">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex justify-center items-center"
+            >
+              <input
+                {...register("search")}
+                placeholder="Search by name..."
+                className="py-3 px-4 max-w-xs w-full border border-blue-200 rounded-md rounded-r-none text-sm focus:border-blue-500 focus:ring-blue-500 outline-none"
+              />
+              <button
+                type="submit"
+                className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md rounded-l-none border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 text-sm "
+              >
+                Search
+              </button>
+            </form>
           </div>
-          <div className="text-center"></div>
+          {loading ? (
+            <Loading />
+          ) : foods?.length < 1 ? (
+            <div className="flex justify-center items-center h-[50vh] font-semibold text-2xl md:text-3xl lg:text-4xl">
+              No food find
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
+              {foods?.map((food) => (
+                <FeatureFoodCard key={food._id} food={food} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
