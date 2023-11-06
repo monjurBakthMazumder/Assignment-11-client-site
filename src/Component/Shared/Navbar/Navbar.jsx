@@ -11,7 +11,7 @@ const Navbar = () => {
       {user ? (
         <div className="bg-blue-800">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-5  max-w-[100rem] w-full mx-auto  py-3 sm:px-6 lg:px-8">
-              <h1 className="text-white  text-sm">Share a Meal, Share a Smile</h1>
+            <h1 className="text-white  text-sm">Share a Meal, Share a Smile</h1>
             <div className="flex items-center gap-2">
               <div className="relative inline-block">
                 <img
@@ -21,9 +21,7 @@ const Navbar = () => {
                 />
                 <span className="absolute top-0 right-0 block h-3 w-3 rounded-full transform -translate-y-1/2 translate-x-1/2 bg-blue-400"></span>
               </div>
-              <h1 className="text-white  text-sm">
-                {user.displayName}
-              </h1>
+              <h1 className="text-white  text-sm">{user.displayName}</h1>
             </div>
           </div>
         </div>
@@ -41,11 +39,7 @@ const Navbar = () => {
               className="flex items-center gap-2 text-2xl font-semibold text-white"
               aria-label="Brand"
             >
-              <img
-                src="/logo.png"
-                alt=""
-                className="h-10 border rounded-full px-[6px] py-2 border-black"
-              />
+              <img src="/logo.png" alt="" className="h-10" />
               Foodies
             </Link>
             <div className="sm:hidden">
@@ -109,42 +103,46 @@ const Navbar = () => {
               >
                 Available Food
               </NavLink>
-              <NavLink
-                to={"/add-food"}
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "font-medium text-white underline sm:py-6"
-                    : "font-medium text-white sm:py-6"
-                }
-              >
-                Add Food
-              </NavLink>
-              <NavLink
-                to={"/manage-my-food"}
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "font-medium text-white underline sm:py-6"
-                    : "font-medium text-white sm:py-6"
-                }
-              >
-                Manage My Food
-              </NavLink>
-              <NavLink
-                to={"/my-food-request"}
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "font-medium text-white underline sm:py-6"
-                    : "font-medium text-white sm:py-6"
-                }
-              >
-                My Food Request
-              </NavLink>
+              {user && (
+                <>
+                  <NavLink
+                    to={"/add-food"}
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? "pending"
+                        : isActive
+                        ? "font-medium text-white underline sm:py-6"
+                        : "font-medium text-white sm:py-6"
+                    }
+                  >
+                    Add Food
+                  </NavLink>
+                  <NavLink
+                    to={"/manage-my-food"}
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? "pending"
+                        : isActive
+                        ? "font-medium text-white underline sm:py-6"
+                        : "font-medium text-white sm:py-6"
+                    }
+                  >
+                    Manage My Food
+                  </NavLink>
+                  <NavLink
+                    to={"/my-food-request"}
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? "pending"
+                        : isActive
+                        ? "font-medium text-white underline sm:py-6"
+                        : "font-medium text-white sm:py-6"
+                    }
+                  >
+                    My Food Request
+                  </NavLink>
+                </>
+              )}
               {user ? (
                 <>
                   <button

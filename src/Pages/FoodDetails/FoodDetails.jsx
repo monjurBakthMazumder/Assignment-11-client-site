@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../../Hock/axiosSecure";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -51,7 +51,7 @@ const FoodDetails = () => {
       expiredDate,
       donationMoney,
       additionalNote,
-      status
+      status,
     };
     console.log(requestFood);
     axiosSecure.post("/request-foods", requestFood).then((res) => {
@@ -89,13 +89,19 @@ const FoodDetails = () => {
             Pickup location: {pickupLocation}
           </h1>
 
-          <button
-            type="button"
-            data-hs-overlay="#hs-modal-recover-account"
-            className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
-          >
-            Request
-          </button>
+          {user ? (
+            <button
+              type="button"
+              data-hs-overlay="#hs-modal-recover-account"
+              className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5"
+            >
+              Request
+            </button>
+          ) : (
+            <Link to={'/sing-in'} className="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5">
+              Login for food request
+            </Link>
+          )}
 
           <div
             id="hs-modal-recover-account"
@@ -116,7 +122,7 @@ const FoodDetails = () => {
                         <label htmlFor="name">
                           Donation Money
                           <input
-                          type="number"
+                            type="number"
                             {...register("donationMoney", {
                               required: "Donation Money is required",
                             })}

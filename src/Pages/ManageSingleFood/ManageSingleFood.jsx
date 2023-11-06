@@ -14,7 +14,7 @@ const ManageSingleFood = () => {
   console.log(food);
   const data = useMemo(() => food, [food]);
   const handleUpdate = (id) => {
-    const updateFood = { status : "Delivered"}
+    const updateFood = { status: "Delivered" };
     alert("update");
     axiosSecure
       .put(`/request/${id}`, updateFood)
@@ -38,7 +38,7 @@ const ManageSingleFood = () => {
             <img
               src={row.values.requesterImg}
               alt="Requester Image"
-              style={{ width: "50px", height: "50px" }} 
+              style={{ width: "50px", height: "50px" }}
             />
           </div>
         ),
@@ -53,15 +53,31 @@ const ManageSingleFood = () => {
       },
       {
         Header: "Status",
-        accessor: "status",
-      },
-      {
-        Header: "Change",
         accessor: "_id",
         Cell: ({ row }) => (
-          <div>
-            <p onClick={() => handleUpdate(row.original._id)} className="px-3 py-1 text-center border border-blue-600 bg-blue-600 text-white hover:bg-white hover:text-blue-600 cursor-pointer">status</p>
-          </div>
+          <>
+            <div>
+              {row.original.status !== "Delivered" ? (
+                <button onClick={() => handleDelete(row.original._id)}>
+                  <p
+                    onClick={() => handleUpdate(row.original._id)}
+                    className="px-3 py-1 text-center border border-blue-600 bg-blue-600 text-white hover:bg-white hover:text-blue-600 cursor-pointer"
+                  >
+                    status
+                  </p>
+                </button>
+              ) : (
+                <button disabled>
+                  <p
+                    onClick={() => handleUpdate(row.original._id)}
+                    className="px-3 py-1 text-center border border-blue-600 bg-white text-blue-600"
+                  >
+                    Delivered
+                  </p>
+                </button>
+              )}
+            </div>
+          </>
         ),
       },
     ],
@@ -73,7 +89,7 @@ const ManageSingleFood = () => {
     axiosSecure
       .get(`/manage-single-foods-request/${params?.id}`)
       .then((res) => setFoods(res.data));
-  }, [axiosSecure, params?.id, ()=>handleUpdate]);
+  }, [axiosSecure, params?.id, () => handleUpdate]);
   console.log(food);
 
   return (
