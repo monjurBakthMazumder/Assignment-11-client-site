@@ -1,10 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import UseAuth from "../../../Hock/UseAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, logoutUser } = UseAuth();
   const handleLogOut = () => {
-    logoutUser();
+    logoutUser()
+    .then(()=> {
+      Swal.fire({
+        title: "LogOut",
+        text: "Log out successfully",
+        icon: "success",
+      });
+    })
   };
   return (
     <>

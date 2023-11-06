@@ -5,6 +5,7 @@ import SocialSingIn from "../SocialSingIn/SocialSingIn";
 import { useForm } from "react-hook-form";
 import UseAuth from "../../../Hock/UseAuth";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const SingIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser } = UseAuth();
@@ -27,9 +28,13 @@ const SingIn = () => {
     setError("");
     // login user
     loginUser(email, password)
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         navigate("/");
+        Swal.fire({
+          title: "LogIn",
+          text: "Login successfully",
+          icon: "success",
+        });
       })
       .catch(() => {
         setError("Email or password don't match");

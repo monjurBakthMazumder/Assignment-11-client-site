@@ -6,6 +6,7 @@ import UseAuth from "../../Hock/UseAuth";
 import { useParams } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const ManageSingleFood = () => {
   const [food, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,13 +18,33 @@ const ManageSingleFood = () => {
   const data = useMemo(() => food, [food]);
   const handleUpdate = (id) => {
     const updateFood = { status: "Delivered" };
-    alert("update");
-    axiosSecure
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure to deliver this food",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
       .put(`/request/${id}`, updateFood)
-      .then((response) => {})
+      .then((res) => {
+        if(res.data.modifiedCount){
+          Swal.fire({
+            title: "Delivered !",
+            text: "Your has has been delivered.",
+            icon: "success"
+          });
+        }
+      })
       .catch((error) => {
         console.error("Error deleting food item: ", error);
       });
+      }
+    });
+    
   };
 
   const columns = useMemo(

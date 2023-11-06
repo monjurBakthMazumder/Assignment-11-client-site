@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const FoodDetails = () => {
   const [food, setFood] = useState({});
   const axiosSecure = useAxiosSecure();
@@ -58,7 +59,11 @@ const FoodDetails = () => {
     axiosSecure.post("/request-foods", requestFood).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
-        alert("food added");
+        Swal.fire({
+          title: "Send request",
+          text: "Your food request is send successfully",
+          icon: "success"
+        });
       }
     });
   };

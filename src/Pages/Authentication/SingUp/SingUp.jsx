@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import UseAuth from "../../../Hock/UseAuth";
 import { updateProfile } from "firebase/auth";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const SingUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -32,6 +33,11 @@ const SingUp = () => {
     //create user
     createUser(email, password)
       .then((result) => {
+        Swal.fire({
+          title: "Created account!!",
+          text: "Create account successfully",
+          icon: "success",
+        });
         updateProfile(result.user, {
           displayName: name,
           photoURL: photo,

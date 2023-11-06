@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
 import useAxiosSecure from "../../Hock/axiosSecure";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const AddFood = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
@@ -45,7 +46,11 @@ const AddFood = () => {
     await axiosSecure.post("/foods", addFood).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
-        alert("food added");
+        Swal.fire({
+          title: "Food added",
+          text: "Your food added successfully",
+          icon: "success",
+        });
       }
     });
   };

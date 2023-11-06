@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const UpdateFood = () => {
   const [food, setFood] = useState({});
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,11 @@ const UpdateFood = () => {
     axiosSecure.put(`/foods/${_id}`, updateFood).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount) {
-        alert("food update");
+        Swal.fire({
+          title: "Food updated",
+          text: "Your food updated successfully",
+          icon: "success"
+        });
       }
     });
   };

@@ -7,6 +7,7 @@ import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 
 const ManageMyFood = () => {
   const [food, setFoods] = useState([]);
@@ -18,15 +19,35 @@ const ManageMyFood = () => {
   console.log(food);
   const data = useMemo(() => food, [food]);
   const handleDelete = (id) => {
-    alert("delete");
-    axiosSecure
-      .delete(`/foods/${id}`)
-      .then((response) => {
-        setFoods((prevFoods) => prevFoods.filter((food) => food._id !== id));
-      })
-      .catch((error) => {
-        console.error("Error deleting food item: ", error);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/foods/${id}`)
+          .then((response) => {
+            setFoods((prevFoods) =>
+              prevFoods.filter((food) => food._id !== id)
+            );
+            if (response.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting food item: ", error);
+          });
+      }
+    });
   };
   const handleUpdate = (id) => {
     navigate(`/update-food/${id}`);

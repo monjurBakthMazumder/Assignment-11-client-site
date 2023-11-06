@@ -1,17 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import UseAuth from "../../../Hock/UseAuth";
+import Swal from "sweetalert2";
 
 const SocialSingIn = () => {
   const {singInWithGoogle} = UseAuth()
   const navigate= useNavigate()
   const handleSocialLogin = media => {
     media()
-    .then(result=> {
-      console.log(result);
+    .then(()=> {
       navigate('/')
+      Swal.fire({
+        title: "LogIn",
+        text: "Login successfully",
+        icon: "success",
+      });
     })
-    .catch(err=> {
-      console.log(err);
+    .catch(()=> {
+      Swal.fire({
+        title: "Oops!!",
+        text: "Something went wrong",
+        icon: "error",
+      });
     })
   }
   return (

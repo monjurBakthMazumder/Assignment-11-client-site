@@ -6,6 +6,7 @@ import UseAuth from "../../Hock/UseAuth";
 import { AiFillDelete } from "react-icons/ai";
 import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 const MyFoodRequest = () => {
   const [food, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,15 +16,35 @@ const MyFoodRequest = () => {
   console.log(food);
   const data = useMemo(() => food, [food]);
   const handleDelete = (id) => {
-    alert("delete");
-    axiosSecure
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
       .delete(`/request/${id}`)
       .then((response) => {
         setFoods((prevFoods) => prevFoods.filter((food) => food._id !== id));
+        if(response.data.deletedCount > 0) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
       })
       .catch((error) => {
         console.error("Error deleting food item: ", error);
       });
+        
+      }
+    });
+    
   };
 
   const columns = useMemo(
