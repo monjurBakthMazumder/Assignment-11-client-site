@@ -25,26 +25,32 @@ const ManageSingleFood = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-      .put(`/request/${id}`, updateFood)
-      .then((res) => {
-        if(res.data.modifiedCount){
-          Swal.fire({
-            title: "Delivered !",
-            text: "Your has has been delivered.",
-            icon: "success"
+          .put(`/request/${id}`, updateFood)
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              setLoading(true);
+              axiosSecure
+                .get(`/manage-single-foods-request/${params?.id}`)
+                .then((res) => {
+                  setFoods(res.data);
+                  setLoading(false);
+                  Swal.fire({
+                    title: "Delivered !",
+                    text: "Your has has been delivered.",
+                    icon: "success",
+                  });
+                });
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting food item: ", error);
           });
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting food item: ", error);
-      });
       }
     });
-    
   };
 
   const columns = useMemo(

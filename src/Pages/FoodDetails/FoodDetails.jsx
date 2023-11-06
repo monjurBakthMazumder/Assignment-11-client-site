@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import UseAuth from "../../Hock/UseAuth";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import Loading from "../../Component/Loading/Loading";
 const FoodDetails = () => {
   const [food, setFood] = useState({});
+  const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
   const id = useParams();
@@ -68,9 +70,17 @@ const FoodDetails = () => {
     });
   };
   useEffect(() => {
-    axiosSecure.get(`/foods/${id.id}`).then((res) => setFood(res.data));
+    setLoading(true);
+    axiosSecure.get(`/foods/${id.id}`).then((res) => {
+      setFood(res.data)
+      setLoading(false)
+    });
   }, [axiosSecure, id?.id]);
   console.log(id);
+  
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
       <Helmet>
