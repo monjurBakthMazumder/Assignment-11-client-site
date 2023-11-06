@@ -8,6 +8,7 @@ import Loading from "../../Component/Loading/Loading";
 import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../Hock/useAxiosSecure";
 import Faq from "../../Component/Faq/Faq";
+import Contact from "../../Component/Contact/Contact";
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
@@ -52,6 +53,7 @@ const Home = () => {
           </div>
         </div>
         <Faq/>
+        <Contact/>
       </div>
     </>
   );

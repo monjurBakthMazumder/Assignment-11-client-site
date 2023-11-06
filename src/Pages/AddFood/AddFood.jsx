@@ -9,6 +9,7 @@ const AddFood = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -51,6 +52,7 @@ const AddFood = () => {
           text: "Your food added successfully",
           icon: "success",
         });
+        reset()
       }
     });
   };

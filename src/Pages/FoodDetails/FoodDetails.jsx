@@ -15,6 +15,7 @@ const FoodDetails = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -61,6 +62,7 @@ const FoodDetails = () => {
     axiosSecure.post("/request-foods", requestFood).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
+        reset()
         Swal.fire({
           title: "Send request",
           text: "Your food request is send successfully",
