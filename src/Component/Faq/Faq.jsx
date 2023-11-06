@@ -3,7 +3,7 @@ import Heading from "../UI/Heading";
 const Faq = () => {
   return (
     <div>
-      <div className="max-w-[100rem] w-full mx-auto xl:px-8 my-10 md:my-20">
+      <div className="max-w-[100rem] w-full mx-auto my-10 md:my-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
           <Heading>Frequently Asked Questions</Heading>
         </div>

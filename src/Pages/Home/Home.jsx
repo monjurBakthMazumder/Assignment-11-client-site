@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../Hock/useAxiosSecure";
 import Faq from "../../Component/Faq/Faq";
 import Contact from "../../Component/Contact/Contact";
+import Stats from "../../Component/Stats/Stats";
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
@@ -28,7 +29,7 @@ const Home = () => {
       </Helmet>
       <div className="max-w-[100rem] w-full mx-auto xl:px-8">
         <HomeSlicer />
-        <div className="my-10 sm:my-20">
+        <div className="my-10 sm:my-20 px-4 sm:px-6 lg:px-8">
           <Heading>Featured Foods</Heading>
           <Description>
             Explore our website for an array of delightful, nutritious food
@@ -37,7 +38,7 @@ const Home = () => {
           {loading ? (
             <Loading />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 my-5 ">
               {foods?.map((food) => (
                 <FeatureFoodCard key={food._id} food={food} />
               ))}
@@ -52,6 +53,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
+        <Stats/>
         <Faq/>
         <Contact/>
       </div>

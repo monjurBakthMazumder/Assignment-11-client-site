@@ -48,7 +48,7 @@ const AvailableFood = () => {
       <Helmet>
         <title>Foodies | Available Food</title>
       </Helmet>
-      <div className="max-w-[100rem] w-full mx-auto xl:px-8">
+      <div className="max-w-[100rem] w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="my-10 sm:my-20">
           <Heading>Featured Foods</Heading>
           <Description>

@@ -17,7 +17,8 @@ const Contact = () => {
     });
   };
   return (
-      <div className="max-w-[100rem] w-full mx-auto xl:px-8 my-10 md:my-20 border-2 rounded border-blue-400 px-5 sm:px-10 py-10">
+    <div className="px-4 sm:px-6 lg:px-8 max-w-[100rem] w-full mx-auto">
+      <div className=" xl:px-8 my-10 md:my-20 border-2 rounded border-blue-400 px-5 sm:px-10 py-10 ">
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-10">
           Contact Us
         </h1>
@@ -117,6 +118,7 @@ const Contact = () => {
           </button>
         </form>
       </div>
+    </div>
   );
 };
 
