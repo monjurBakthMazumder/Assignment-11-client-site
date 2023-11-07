@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+import {  useEffect } from "react";
+// import { useContext } from "react";
+// import { AuthContext } from "../Provider/AuthProvider";
 
 const axiosSecure = axios.create({
   // baseURL: "http://localhost:5000",
@@ -9,7 +10,6 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const authInfo = useContext(AuthContext);
   // const {logoutUser} = useContext(AuthContext)
 
   useEffect(() => {
@@ -19,11 +19,12 @@ const useAxiosSecure = () => {
       },
       (error) => {
         if (error.response.status === 401 || error.response.status === 403) {
-          authInfo?.logoutUser().then(() => {});
+          // logoutUser().then(() => {});
         }
       }
     );
-  }, [authInfo]);
+  }, []);
+  // }, [logoutUser]);
 
   return axiosSecure;
 };
