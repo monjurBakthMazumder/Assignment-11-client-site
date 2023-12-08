@@ -1,7 +1,7 @@
 # Foodies
 
- [Live link](https://assignment-11-f45c1.web.app/)
- [Server site github link](https://github.com/monjurBakthMazumder/Assignment-11-server-site)
+ - [Live link](https://assignment-11-f45c1.web.app/)
+ - [Server site github link](https://github.com/monjurBakthMazumder/Assignment-11-server-site)
 
 Technology used-
 - React js
