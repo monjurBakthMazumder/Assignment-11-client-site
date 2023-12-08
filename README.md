@@ -1,9 +1,17 @@
 # Foodies
 
  [Live link](https://assignment-11-f45c1.web.app/)
+ [Server site github link](https://github.com/monjurBakthMazumder/Assignment-11-server-site)
 
+Technology used-
+- React js
+- firebase 
+- Preline UI - Tailwind CSS component library
+- mongodb
+- node js
+- express js
 
-Some featured of the project
+Some featured of the project-
 
 - This is a food donate website. If you want you can donate your extra food here.  While donating any food you must sing in first and while donating you have to give your food image, food name, pickup location, expired date, quantity and additional note.  You will be given a success message with a toast when your donation is Added.
 
